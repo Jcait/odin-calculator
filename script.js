@@ -2,21 +2,24 @@ let btnNum = document.querySelectorAll('.calc-number')
 let btnOperator = document.querySelectorAll('.calc-operator')
 let display = document.querySelector('input')
 let point = document.querySelector('.point')
-let firstNum = ""
-let secondNum = ""
+let btnDel = document.querySelector('.delete-calc')
+let btnClear =  document.querySelector('.clear-calc')
+let currentNum = ""
+let storedNum = ""
 let operator
 
-let calculate = {
 
-
-}
-
-display.value = `${firstNum}`
 
 let add = (num1, num2) =>  {
     return num1 + num2
 }
 
+let calculate = {
+
+    sum() {
+        return this.current + this.store
+    }
+}
 let subtract = (num1, num2) =>  {
     return num1 - num2
 }
@@ -30,8 +33,8 @@ let divide = (num1, num2) =>  {
 }
 
 
-let operate = (operator, firstNum, secondNUm) => {
-    return operator(firstNum, secondNUm)
+let operate = (operator, currentNum, storedNum) => {
+    return operator(currentNum, storedNum)
 }
 
 btnNum.forEach(button => {
@@ -41,7 +44,7 @@ btnNum.forEach(button => {
 })
 
 point.addEventListener('click', () => {
-    if (firstNum.includes(".")) {
+    if (currentNum.includes(".")) {
         return ""
     } else {
         updateDisplay(point)
@@ -49,14 +52,34 @@ point.addEventListener('click', () => {
 })
 
 let updateDisplay = (btn) =>  {
-    firstNum = firstNum + btn.innerText.toString()
-    display.value = firstNum
+    currentNum = currentNum + btn.innerText.toString()
+    display.value = currentNum
 }
+
+btnDel.addEventListener('click', () => {
+    calculate = {
+        sum() {
+            return this.current + this.store
+
+        }
+    }
+})
+
+btnClear.addEventListener('click', () => {
+    currentNum = ""
+    display.value = ""
+})
 
 btnOperator.forEach(button => {
     button.addEventListener('click', () => {
         display.value = ""
-        calculate.num1 = parseInt(firstNum)
+        if(calculate.store) {
+            calculate.current = parseInt(currentNum)
+            currentNum = ""
+        } else {
+           calculate.store = parseInt(currentNum) 
+           currentNum = ""
+        }
         firstNum = ""
         switch(button.innerText) {
             case "+": 

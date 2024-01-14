@@ -5,19 +5,18 @@ body {
 }
 
 
-
+.clear-calc, .delete-calc {
+    width: 50%;
+}
 
 button {
     width: 25%;
     height: 25px; ;
 }
 
-.numbers {
+div  {
     width: 160px;
     display: flex;
     flex-wrap: wrap;
 }
 
-.disabled {
-    cursor: not-allowed;
-}
