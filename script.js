@@ -4,7 +4,7 @@ let firstNum = ""
 let secondNum = ""
 let operator
 
-display.innerText = firstNum
+display.value = `${firstNum}`
 
 let add = (num1, num2) =>  {
     return num1 + num2
@@ -28,7 +28,8 @@ let operate = (operator, firstNum, secondNUm) => {
 }
 
 btn.forEach(button => {
-    let butt = button.addEventListener('click', () => {
+    button.addEventListener('click', () => {
         firstNum = firstNum+ button.innerText.toString()
+        display.value = firstNum
     }) 
 })
