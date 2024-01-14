@@ -1,5 +1,7 @@
-let btn = document.querySelectorAll('button')
+let btnNum = document.querySelectorAll('calc-num')
+let mOperator = documt.querySelectorAll('calc-operator')
 let display = document.querySelector('input')
+let point = document.querySelector('.point')
 let firstNum = ""
 let secondNum = ""
 let operator
@@ -27,9 +29,13 @@ let operate = (operator, firstNum, secondNUm) => {
     return operator(firstNum, secondNUm)
 }
 
-btn.forEach(button => {
+btnNum.forEach(button => {
     button.addEventListener('click', () => {
         firstNum = firstNum+ button.innerText.toString()
         display.value = firstNum
     }) 
+})
+
+point.addEventListener('click', () => {
+    point.disabled = true
 })
