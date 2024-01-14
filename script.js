@@ -13,3 +13,11 @@ let multiply = (num1, num2) =>  {
 let divide = (num1, num2) =>  {
     return num1 / num2
 }
+
+let firstNum 
+let secondNUm
+let operator
+
+let operate = (operator, num1, num2) => {
+    return operator(num1, num2)
+}
