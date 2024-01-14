@@ -1,10 +1,15 @@
 let btnNum = document.querySelectorAll('.calc-number')
-let btnOperator = document.querySelectorAll('calc-operator')
+let btnOperator = document.querySelectorAll('.calc-operator')
 let display = document.querySelector('input')
 let point = document.querySelector('.point')
 let firstNum = ""
 let secondNum = ""
 let operator
+
+let calculate = {
+
+
+}
 
 display.value = `${firstNum}`
 
@@ -31,9 +36,7 @@ let operate = (operator, firstNum, secondNUm) => {
 
 btnNum.forEach(button => {
     button.addEventListener('click', () => {
-        // firstNum = firstNum + button.innerText.toString()
-        // display.value = firstNum
-        displayUpdate(button)
+        updateDisplay(button)
     }) 
 })
 
@@ -41,13 +44,36 @@ point.addEventListener('click', () => {
     if (firstNum.includes(".")) {
         return ""
     } else {
-        // firstNum = firstNum + point.innerText.toString()
-        // display.value = firstNum
-        displayUpdate(point)
+        updateDisplay(point)
     }
 })
 
-let displayUpdate = (btn) =>  {
+let updateDisplay = (btn) =>  {
     firstNum = firstNum + btn.innerText.toString()
     display.value = firstNum
 }
+
+btnOperator.forEach(button => {
+    button.addEventListener('click', () => {
+        display.value = ""
+        calculate.num1 = parseInt(firstNum)
+        firstNum = ""
+        switch(button.innerText) {
+            case "+": 
+            console.log("ow!")
+            break
+
+            case "-":
+            calculate.oper= subtract
+            break
+
+            case "x": 
+            calculate.oper = multiply
+            break
+
+            case "/":
+            calculate.oper = divide
+            break
+        }
+    })
+})
