@@ -18,6 +18,6 @@ let firstNum
 let secondNUm
 let operator
 
-let operate = (operator, num1, num2) => {
-    return operator(num1, num2)
+let operate = (operator, firstNum, secondNUm) => {
+    return operator(firstNum, secondNUm)
 }
