@@ -6,7 +6,6 @@ let btnDel = document.querySelector('.delete-calc')
 let btnClear =  document.querySelector('.clear-calc')
 let currentNum = ""
 let storedNum = ""
-let operator
 
 
 
@@ -14,12 +13,6 @@ let add = (num1, num2) =>  {
     return num1 + num2
 }
 
-let calculate = {
-
-    sum() {
-        return this.current + this.store
-    }
-}
 let subtract = (num1, num2) =>  {
     return num1 - num2
 }
@@ -33,8 +26,12 @@ let divide = (num1, num2) =>  {
 }
 
 
-let operate = (operator, currentNum, storedNum) => {
-    return operator(currentNum, storedNum)
+let operate = (currentNum, operator, storedNum) => {
+    if(operator == divide && currentNum === 0){
+        alert("Dividing by zero will doom us all!")
+    } else {
+        return operator(currentNum, storedNum)
+    }
 }
 
 btnNum.forEach(button => {
@@ -73,6 +70,10 @@ btnClear.addEventListener('click', () => {
 btnOperator.forEach(button => {
     button.addEventListener('click', () => {
         display.value = ""
+        // Checks if theres no number
+        if(!currentNum){
+            return ""
+        } 
         if(calculate.store) {
             calculate.current = parseInt(currentNum)
             currentNum = ""
@@ -83,20 +84,34 @@ btnOperator.forEach(button => {
         firstNum = ""
         switch(button.innerText) {
             case "+": 
-            console.log("ow!")
+            calculate.operator = add
             break
 
             case "-":
-            calculate.oper= subtract
+            calculate.operator= subtract
             break
 
             case "x": 
-            calculate.oper = multiply
+            calculate.operator = multiply
             break
 
             case "/":
-            calculate.oper = divide
+            calculate.operator = divide
             break
         }
+        if (calculate.store && calculate.current) {
+            calculate.store = calculate.sum()
+            display.value = calculate.store
+        }
+        calculate.sum()
+
     })
 })
+
+// default holder for the numbers
+let calculate = {
+
+    sum() {
+        return operate(this.current, this.operator, this.store)
+    }
+}
