@@ -4,6 +4,7 @@ let display = document.querySelector('input')
 let point = document.querySelector('.point')
 let btnDel = document.querySelector('.delete-calc')
 let btnClear =  document.querySelector('.clear-calc')
+let btnSum = document.querySelector('.calc-equals')
 let currentNum = ""
 let storedNum = ""
 
@@ -26,7 +27,7 @@ let divide = (num1, num2) =>  {
 }
 
 
-let operate = (currentNum, operator, storedNum) => {
+let operate = (storedNum, operator, currentNum) => {
     if(operator == divide && currentNum === 0){
         alert("Dividing by zero will doom us all!")
     } else {
@@ -37,6 +38,12 @@ let operate = (currentNum, operator, storedNum) => {
 btnNum.forEach(button => {
     button.addEventListener('click', () => {
         updateDisplay(button)
+        if(calculate.store) {
+            calculate.store = parseInt(currentNum)
+        } else {
+           calculate.current = parseInt(currentNum) 
+        }
+        
     }) 
 })
 
@@ -56,8 +63,7 @@ let updateDisplay = (btn) =>  {
 btnDel.addEventListener('click', () => {
     calculate = {
         sum() {
-            return this.current + this.store
-
+            return operate(this.store, this.operator, this.current)
         }
     }
 })
@@ -74,13 +80,6 @@ btnOperator.forEach(button => {
         if(!currentNum){
             return ""
         } 
-        if(calculate.store) {
-            calculate.current = parseInt(currentNum)
-            currentNum = ""
-        } else {
-           calculate.store = parseInt(currentNum) 
-           currentNum = ""
-        }
         firstNum = ""
         switch(button.innerText) {
             case "+": 
@@ -103,11 +102,21 @@ btnOperator.forEach(button => {
             calculate.store = calculate.sum()
             display.value = calculate.store
         }
+        currentNum = ""
         calculate.sum()
 
     })
 })
-
+btnSum.addEventListener('click', () => {
+    if(!currentNum){
+        return ""
+    } 
+    calculate.sum()
+    display.value = calculate.sum()
+    calculate.store = calculate.sum()
+    delete calculate.current
+    delete calculate.operator
+})
 // default holder for the numbers
 let calculate = {
 
@@ -115,3 +124,4 @@ let calculate = {
         return operate(this.current, this.operator, this.store)
     }
 }
+
