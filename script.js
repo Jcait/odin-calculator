@@ -8,9 +8,11 @@ let btnSum = document.querySelector('.calc-equals')
 let currentNum = ""
 
 
+
 let checkZero = () => {
         alert("You'll doom us dividing by 0")
         delete calculate.current
+        delete calculate.store
         throw error("Do NOT divide by zero")
 }
 
@@ -32,12 +34,8 @@ let divide = (num1, num2) =>  {
 
 
 let operate = (storedNum, operator, currentNum) => {
-    if(operator == divide && currentNum === 0){
-        alert("Dividing by zero will doom us all!")
-    } else {
         return operator(currentNum, storedNum)
     }
-}
 
 btnNum.forEach(button => {
     button.addEventListener('click', () => {
@@ -83,7 +81,7 @@ btnOperator.forEach(button => {
             calculate.store = calculate.sum()
             display.value = calculate.store.toString()
             delete calculate.current
-        }   else if(!Number.isFinite(calculate.calculate)) {
+        }   else if(!Number.isFinite(calculate.current)) {
             checkZero()
         }
     } 
@@ -122,11 +120,13 @@ btnOperator.forEach(button => {
     })
 })
 btnSum.addEventListener('click', () => {
-    if(!currentNum && calculate.current){
-        return ""
-    } else if(!Number.isFinite(calculate.calculate)) {
+     if(!Number.isFinite(calculate)) {
         checkZero()
+    } else if(!currentNum && calculate.current){
+        return ""
     }
+
+
     calculate.current = calculate.sum()
     display.value = calculate.current
     currentNum = ""
