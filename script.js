@@ -46,36 +46,37 @@ btnNum.forEach(button => {
     }) 
 })
 
-// point.addEventListener('click', () => {
-//     if (currentNum.includes(".") || currentNum == "") {
-//         return ""
-//     } else {
-//         updateDisplay(point)
-//     }
-// })
+point.addEventListener('click', () => {
+    if (currentNum.includes(".") || currentNum == "") {
+        return ""
+    } else {
+        updateDisplay(point)
+    }
+})
 
 
 
-// btnDel.addEventListener('click', () => {
-//     calculate = {
-//         sum() {
-//             return operate(this.store, this.operator, this.current)
-//         }
-//     }
-// })
+btnDel.addEventListener('click', () => {
+    calculate = {
+        sum() {
+            return operate(this.store, this.operator, this.current)
+        }
+    }
+})
 
-// btnClear.addEventListener('click', () => {
-//     delete calculate.current
-//     currentNum = ""
-//     display.value = ""
-// })
+btnClear.addEventListener('click', () => {
+    delete calculate.current
+    currentNum = ""
+    display.value = ""
+})
 
 btnOperator.forEach(button => {
     button.addEventListener('click', () => { {
         if(calculate.current == 0 && calculate.operator == divide) {
             alert("Don't divide by zero")
-            delete calculate.current
-            delete calculate.operator   
+            delete calculate.store
+            delete calculate.operator 
+            delete calculate.current      
         }
          else if(!calculate.store && calculate.current) {
             // console.log("click")
