@@ -73,11 +73,11 @@ btnClear.addEventListener('click', () => {
 btnOperator.forEach(button => {
     button.addEventListener('click', () => { {
         if(!calculate.store) {
-            console.log("click")
+            // console.log("click")
             calculate.store = calculate.current
             delete calculate.current
         } else if(calculate.current && calculate.store) {
-            console.log("else click")
+            // console.log("else click")
             calculate.store = calculate.sum()
             display.value = calculate.store.toString()
             delete calculate.current
@@ -95,23 +95,23 @@ btnOperator.forEach(button => {
         switch(button.innerText) {
             case "+": 
             calculate.operator = add
-            console.log("add")
+            // console.log("add")
             
             break
 
             case "-":
             calculate.operator= subtract
-            console.log("subtract")
+            // console.log("subtract")
             break
 
             case "x": 
             calculate.operator = multiply
-            console.log("multiply")
+            // console.log("multiply")
             break
 
             case "/":
             calculate.operator = divide
-            console.log("divide")
+            // console.log("divide")
             break
         }
 
