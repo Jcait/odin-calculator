@@ -57,6 +57,8 @@ point.addEventListener('click', () => {
 
 
 btnDel.addEventListener('click', () => {
+    currentNum = ""
+    display.value = ""
     calculate = {
         sum() {
             return operate(this.current, this.operator, this.store)
