@@ -6,7 +6,7 @@ let btnDel = document.querySelector('.delete-calc')
 let btnClear =  document.querySelector('.clear-calc')
 let btnSum = document.querySelector('.calc-equals')
 let currentNum = ""
-let storedNum = ""
+
 
 
 
@@ -38,17 +38,12 @@ let operate = (storedNum, operator, currentNum) => {
 btnNum.forEach(button => {
     button.addEventListener('click', () => {
         updateDisplay(button)
-        if(calculate.store) {
-            calculate.store = parseInt(currentNum)
-        } else {
-           calculate.current = parseInt(currentNum) 
-        }
-        
+        calculate.current = parseInt(currentNum)
     }) 
 })
 
 point.addEventListener('click', () => {
-    if (currentNum.includes(".")) {
+    if (currentNum.includes(".") || currentNum == "") {
         return ""
     } else {
         updateDisplay(point)
@@ -77,45 +72,46 @@ btnOperator.forEach(button => {
     button.addEventListener('click', () => {
         display.value = ""
         // Checks if theres no number
-        if(!currentNum){
-            return ""
-        } 
-        firstNum = ""
+        if(calculate.current){
+            calculate.store = calculate.current
+        } else if(calculate.operator) {
+            currentNum = ""
+        }
+        
         switch(button.innerText) {
             case "+": 
             calculate.operator = add
+            console.log("add")
             break
 
             case "-":
             calculate.operator= subtract
+            console.log("subtract")
             break
 
             case "x": 
             calculate.operator = multiply
+            console.log("multiply")
             break
 
             case "/":
             calculate.operator = divide
+            console.log("divide")
             break
         }
-        if (calculate.store && calculate.current) {
-            calculate.store = calculate.sum()
-            display.value = calculate.store
-        }
+
+
         currentNum = ""
-        calculate.sum()
 
     })
 })
 btnSum.addEventListener('click', () => {
-    if(!currentNum){
+    if(!currentNum && calculate.current){
         return ""
     } 
-    calculate.sum()
-    display.value = calculate.sum()
-    calculate.store = calculate.sum()
-    delete calculate.current
-    delete calculate.operator
+    calculate.current = calculate.sum()
+    display.value = calculate.current
+    currentNum = ""
 })
 // default holder for the numbers
 let calculate = {
