@@ -16,7 +16,7 @@ let add = (num1, num2) =>  {
 }
 
 let subtract = (num1, num2) =>  {
-    return  num1 - num2
+    return   num1 - num2
 }
 
 let multiply = (num1, num2) =>  {
@@ -59,7 +59,7 @@ point.addEventListener('click', () => {
 btnDel.addEventListener('click', () => {
     calculate = {
         sum() {
-            return operate(this.store, this.operator, this.current)
+            return operate(this.current, this.operator, this.store)
         }
     }
 })
@@ -125,10 +125,14 @@ btnOperator.forEach(button => {
 })
 
 btnSum.addEventListener('click', () => {
-    calculate.store = calculate.sum()
-    display.value = calculate.store
+    console.log("click!")
+    if(!calculate.store) {
+        return ""
+    }
+    calculate.current = calculate.sum()
+    display.value = calculate.current
     currentNum = ""
-    delete calculate.current
+    delete calculate.store
     if(!currentNum && calculate.current){
         return ""
     } else if (calculate.store == 0) {
