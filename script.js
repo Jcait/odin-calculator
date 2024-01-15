@@ -8,14 +8,18 @@ let btnSum = document.querySelector('.calc-equals')
 let currentNum = ""
 
 
-
+let checkZero = () => {
+        alert("You'll doom us dividing by 0")
+        delete calculate.current
+        throw error("Do NOT divide by zero")
+}
 
 let add = (num1, num2) =>  {
     return num1 + num2
 }
 
 let subtract = (num1, num2) =>  {
-    return num1 - num2
+    return  num1 - num2
 }
 
 let multiply = (num1, num2) =>  {
@@ -69,19 +73,32 @@ btnClear.addEventListener('click', () => {
 })
 
 btnOperator.forEach(button => {
-    button.addEventListener('click', () => {
-        display.value = ""
-        // Checks if theres no number
-        if(calculate.current){
+    button.addEventListener('click', () => { {
+        if(!calculate.store) {
+            console.log("click")
             calculate.store = calculate.current
-        } else if(calculate.operator) {
-            currentNum = ""
+            delete calculate.current
+        } else if(calculate.current && calculate.store) {
+            console.log("else click")
+            calculate.store = calculate.sum()
+            display.value = calculate.store.toString()
+            delete calculate.current
+        }   else if(!Number.isFinite(calculate.calculate)) {
+            checkZero()
         }
-        
+    } 
+
+    })
+})
+
+btnOperator.forEach(button => {
+    button.addEventListener('click', () => {
+     
         switch(button.innerText) {
             case "+": 
             calculate.operator = add
             console.log("add")
+            
             break
 
             case "-":
@@ -100,7 +117,6 @@ btnOperator.forEach(button => {
             break
         }
 
-
         currentNum = ""
 
     })
@@ -108,10 +124,13 @@ btnOperator.forEach(button => {
 btnSum.addEventListener('click', () => {
     if(!currentNum && calculate.current){
         return ""
-    } 
+    } else if(!Number.isFinite(calculate.calculate)) {
+        checkZero()
+    }
     calculate.current = calculate.sum()
     display.value = calculate.current
     currentNum = ""
+    delete calculate.store
 })
 // default holder for the numbers
 let calculate = {

@@ -20,3 +20,6 @@ div  {
     flex-wrap: wrap;
 }
 
+.numbers {
+    border: solid black;
+}
