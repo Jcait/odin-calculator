@@ -9,12 +9,7 @@ let currentNum = ""
 
 
 
-let checkZero = () => {
-        alert("You'll doom us dividing by 0")
-        delete calculate.current
-        delete calculate.store
-        throw error("Do NOT divide by zero")
-}
+
 
 let add = (num1, num2) =>  {
     return num1 + num2
@@ -28,14 +23,21 @@ let multiply = (num1, num2) =>  {
     return num1 * num2
 }
 
-let divide = (num1, num2) =>  {
-    return num1 / num2
+let divide = (num1, num2) => {
+    return num1 / num2  
 }
 
 
 let operate = (storedNum, operator, currentNum) => {
         return operator(currentNum, storedNum)
     }
+
+
+let updateDisplay = (btn) =>  {
+    currentNum = currentNum + btn.innerText.toString()
+    display.value = currentNum
+}
+
 
 btnNum.forEach(button => {
     button.addEventListener('click', () => {
@@ -44,54 +46,55 @@ btnNum.forEach(button => {
     }) 
 })
 
-point.addEventListener('click', () => {
-    if (currentNum.includes(".") || currentNum == "") {
-        return ""
-    } else {
-        updateDisplay(point)
-    }
-})
+// point.addEventListener('click', () => {
+//     if (currentNum.includes(".") || currentNum == "") {
+//         return ""
+//     } else {
+//         updateDisplay(point)
+//     }
+// })
 
-let updateDisplay = (btn) =>  {
-    currentNum = currentNum + btn.innerText.toString()
-    display.value = currentNum
-}
 
-btnDel.addEventListener('click', () => {
-    calculate = {
-        sum() {
-            return operate(this.store, this.operator, this.current)
-        }
-    }
-})
 
-btnClear.addEventListener('click', () => {
-    currentNum = ""
-    display.value = ""
-})
+// btnDel.addEventListener('click', () => {
+//     calculate = {
+//         sum() {
+//             return operate(this.store, this.operator, this.current)
+//         }
+//     }
+// })
+
+// btnClear.addEventListener('click', () => {
+//     delete calculate.current
+//     currentNum = ""
+//     display.value = ""
+// })
 
 btnOperator.forEach(button => {
     button.addEventListener('click', () => { {
-        if(!calculate.store) {
+        if(calculate.current == 0 && calculate.operator == divide) {
+            alert("Don't divide by zero")
+            delete calculate.current
+            delete calculate.operator   
+        }
+         else if(!calculate.store && calculate.current) {
             // console.log("click")
             calculate.store = calculate.current
             delete calculate.current
         } else if(calculate.current && calculate.store) {
             // console.log("else click")
             calculate.store = calculate.sum()
-            display.value = calculate.store.toString()
+            display.value = calculate.store
             delete calculate.current
-        }   else if(!Number.isFinite(calculate.current)) {
-            checkZero()
-        }
+        }    
     } 
 
     })
 })
 
+
 btnOperator.forEach(button => {
     button.addEventListener('click', () => {
-     
         switch(button.innerText) {
             case "+": 
             calculate.operator = add
@@ -119,20 +122,23 @@ btnOperator.forEach(button => {
 
     })
 })
+
 btnSum.addEventListener('click', () => {
-     if(!Number.isFinite(calculate)) {
-        checkZero()
-    } else if(!currentNum && calculate.current){
-        return ""
-    }
-
-
-    calculate.current = calculate.sum()
-    display.value = calculate.current
+    calculate.store = calculate.sum()
+    display.value = calculate.store
     currentNum = ""
-    delete calculate.store
+    delete calculate.current
+    if(!currentNum && calculate.current){
+        return ""
+    } else if (calculate.store == 0) {
+        alert("Don't divide by Zero!")
+        delete calculate.store
+        delete calculate.operator
+    } 
 })
 // default holder for the numbers
+
+
 let calculate = {
 
     sum() {
