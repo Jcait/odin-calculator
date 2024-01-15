@@ -15,11 +15,11 @@ button {
 }
 
 div  {
-    width: 160px;
+    width: 186px;
     display: flex;
     flex-wrap: wrap;
 }
 
-.numbers {
+/* .numbers {
     border: solid black;
-}
+} */
