@@ -72,18 +72,30 @@ point.addEventListener('click', () => {
 btnDel.addEventListener('click', () => {
     currentNum = ""
     display.value = ""
+    btnText = ""
     calculate = {
         sum() {
             return operate(this.current, this.operator, this.store)
         }
     }
 })
-
+btnClear.addEventListener('click', () => {
+    if(!calculate.store) {
+        console.log("wew")
+        display.value = ""
+        return ""
+    } else {
+        display.value = `${calculate.store}`
+    }
+})
 btnClear.addEventListener('click', () => {
     delete calculate.current
+    delete calculate.operator
     currentNum = ""
-    display.value = ""
+    btnText = ""
 })
+
+
 
 btnOperator.forEach(button => {
     button.addEventListener('click', () => { {
