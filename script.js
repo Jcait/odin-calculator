@@ -7,6 +7,7 @@ let btnClear =  document.querySelector('.clear-calc')
 let btnSum = document.querySelector('.calc-equals')
 let btn = document.querySelectorAll('button')
 let currentNum = ""
+let btnText = ""
 
 
 
@@ -99,18 +100,34 @@ btnOperator.forEach(button => {
         else if(calculate.current 
             && (calculate.store || calculate.store === 0)) {
             calculate.store = calculate.sum()
-            display.value = calculate.store
+            display.value = `${calculate.store} ${btnText} `
             delete calculate.current
         }    
     } 
 
+            currentNum = ""  
+
     })
 })
 
-
-
-
-
+btnOperator.forEach(button => {
+    button.addEventListener('click', () => {
+        if(btnText === button.innerText ) {
+            console.log("woof")
+            return ""            
+        } 
+        else if (btnText && button.innerText !== btnText) {
+            console.log(btnText)
+            console.log(button.innerText)
+            console.log("meow")
+            display.value = display.value.replace(btnText, button.innerText)
+        } 
+        else {
+            display.value = display.value + ` ${button.innerText} `
+            btnText = ""
+        }
+    })
+})
 
 
 btnOperator.forEach(button => {
@@ -119,28 +136,29 @@ btnOperator.forEach(button => {
             case "+": 
             calculate.operator = add
             calculate.sum()
+            btnText = "+"
             
             break
 
             case "-":
             calculate.operator= subtract
             calculate.sum()
+            btnText = "-"
             break
 
             case "x": 
             calculate.operator = multiply
             calculate.sum()
+            btnText = "x"
             break
 
             case "/":
             calculate.operator = divide
             calculate.sum()
+            btnText = "/"
 
             break
         }
-        display.value = display.value +` ${button.innerText} `
-        currentNum = ""
-
 
     })
 })
@@ -168,9 +186,10 @@ btnSum.addEventListener('click', () => {
 })
 
 btnSum.addEventListener('click', () => {
-        if(display.value =NaN) {
-            console.log("nanan")
+        if(!Number(calculate.current)) {
+            display.value = "Infinity"
         }
+        btnText = ""
     })
 
 
