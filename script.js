@@ -5,6 +5,7 @@ let point = document.querySelector('.point')
 let btnDel = document.querySelector('.delete-calc')
 let btnClear =  document.querySelector('.clear-calc')
 let btnSum = document.querySelector('.calc-equals')
+let btn = document.querySelectorAll('button')
 let currentNum = ""
 
 
@@ -32,17 +33,28 @@ let operate = (storedNum, operator, currentNum) => {
         return operator(currentNum, storedNum)
     }
 
+    let calculate = {
+        sum() { 
+            return operate(this.current, this.operator, this.store)
+        }   
+    }
+    
+
 
 let updateDisplay = (btn) =>  {
     currentNum = currentNum + btn.innerText.toString()
-    display.value = currentNum
+    display.value = display.value + `${btn.innerText}`
 }
 
 
 btnNum.forEach(button => {
     button.addEventListener('click', () => {
         updateDisplay(button)
-        calculate.current = parseInt(currentNum)
+        calculate.current = Number(currentNum)
+        if(calculate.summed) {
+            display.value = currentNum
+            calculate.summed = false
+        }
     }) 
 })
 
@@ -74,18 +86,18 @@ btnClear.addEventListener('click', () => {
 
 btnOperator.forEach(button => {
     button.addEventListener('click', () => { {
-        if(calculate.current == 0 && calculate.operator == divide) {
-            alert("Don't divide by zero")
-            delete calculate.store
-            delete calculate.operator 
-            delete calculate.current      
-        }
-         else if(!calculate.store && calculate.current) {
+            if(!calculate.store 
+                && calculate.current ) {
             // console.log("click")
-            calculate.store = calculate.current
+            calculate.store = Number(calculate.current)
             delete calculate.current
-        } else if(calculate.current && calculate.store) {
-            // console.log("else click")
+        } 
+        else if (calculate.current === 0) {
+            calculate.store = Number(calculate.sum())
+            delete calculate.current
+        }
+        else if(calculate.current 
+            && (calculate.store || calculate.store === 0)) {
             calculate.store = calculate.sum()
             display.value = calculate.store
             delete calculate.current
@@ -96,38 +108,52 @@ btnOperator.forEach(button => {
 })
 
 
+
+
+
+
+
 btnOperator.forEach(button => {
     button.addEventListener('click', () => {
         switch(button.innerText) {
             case "+": 
             calculate.operator = add
-            // console.log("add")
+            calculate.sum()
             
             break
 
             case "-":
             calculate.operator= subtract
-            // console.log("subtract")
+            calculate.sum()
             break
 
             case "x": 
             calculate.operator = multiply
-            // console.log("multiply")
+            calculate.sum()
             break
 
             case "/":
             calculate.operator = divide
-            // console.log("divide")
+            calculate.sum()
+
             break
         }
-
+        display.value = display.value +` ${button.innerText} `
         currentNum = ""
+
 
     })
 })
 
+
+
+
+
+
 btnSum.addEventListener('click', () => {
     console.log("click!")
+    calculate.summed = true
+  
     if(!calculate.store) {
         return ""
     }
@@ -137,19 +163,14 @@ btnSum.addEventListener('click', () => {
     delete calculate.store
     if(!currentNum && calculate.current){
         return ""
-    } else if (calculate.store == 0) {
-        alert("Don't divide by Zero!")
-        delete calculate.store
-        delete calculate.operator
-    } 
+    }  
+
 })
-// default holder for the numbers
 
+btnSum.addEventListener('click', () => {
+        if(display.value =NaN) {
+            console.log("nanan")
+        }
+    })
 
-let calculate = {
-
-    sum() {
-        return operate(this.current, this.operator, this.store)
-    }
-}
 
