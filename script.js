@@ -4,6 +4,7 @@ let display = document.querySelector('input')
 let btnSum = document.querySelector('.calc-equals')
 let btnGoBack = document.querySelector(".clear-calc")
 let btnDel = document.querySelector(".delete-calc")
+let point = document.querySelector(".point")
 let currentNum = []
 let storedNum = []
 let  operator 
@@ -35,7 +36,7 @@ let calculate = () => {
         return
     }
     let firstNum = Number(storedNum);
-    let secondNum = Number(currentNum.join("").replace(/\D/g,''))
+    let secondNum = Number(currentNum.join(""))
         console.log(operator(firstNum, secondNum))
         currentNum = []
         storedNum.push(operator(firstNum, secondNum))
@@ -60,7 +61,8 @@ btnNum.forEach(button => {
             } 
         
         else if(operator && !storedNum.length) {
-            let joinedArr = (currentNum.join(""))
+            let joinedArr = (Number(currentNum.join("")))
+            console.log(joinedArr)
             storedNum.push(Number(joinedArr))
             currentNum = []
             updateDisplay(button)
@@ -133,7 +135,7 @@ btnOperator.forEach(button => {
             opSymbol = button.innerText
             break
 
-            case "/":
+            case "÷":
             operator = divide
             opSymbol = button.innerText
             break
@@ -145,6 +147,9 @@ btnOperator.forEach(button => {
 // Equals button, own func for readability
 
 btnSum.addEventListener('click', () => {
+    if(!storedNum.length) {
+        return
+    }
     calculate()
     
 })
@@ -170,7 +175,20 @@ btnDel.addEventListener('click', () => {
     operator = ""
     display.value = ""
 })
-// test
+
+
+// point button
+
+point.addEventListener('click', () => {
+    if (currentNum.includes(".")|| !currentNum.length) {
+        return
+    } else {
+        currentNum.push(point.innerText)
+        display.value = display.value + `${point.innerText}`
+    }
+})
+
+
 
 
 
