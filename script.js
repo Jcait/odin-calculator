@@ -158,6 +158,7 @@ btnDel.addEventListener('click', () => {
     operator = ""
     display.value = ""
 })
+// test
 
 
 
