@@ -37,13 +37,13 @@ let calculate = () => {
     }
     let firstNum = Number(storedNum);
     let secondNum = Number(currentNum.join(""))
-        console.log(operator(firstNum, secondNum))
+        let answer = Number(operator(firstNum, secondNum).toFixed(2))
         currentNum = []
-        storedNum.push(operator(firstNum, secondNum))
+        storedNum.push(answer)
         if(storedNum.includes(NaN)) {
             display.value = "Error"
         } else {
-            display.value = operator(firstNum, secondNum)
+            display.value = answer
         }
         storedNum.shift()
         operator = ""
