@@ -12,6 +12,8 @@ body {
 button {
     width: 25%;
     height: 50px;
+    font-size: 150%;
+    font-weight: 500;
 }
 
 div  {
