@@ -49,6 +49,13 @@ let calculate = () => {
         operator = ""
 }
 
+let storeNum = () => {
+    let joinedArr = (Number(currentNum.join("")))
+    console.log(joinedArr)
+    storedNum.push(Number(joinedArr))
+    currentNum = []
+}
+
 // NUMBER BUTTONS
 
 btnNum.forEach(button => {
@@ -61,10 +68,7 @@ btnNum.forEach(button => {
             } 
         
         else if(operator && !storedNum.length) {
-            let joinedArr = (Number(currentNum.join("")))
-            console.log(joinedArr)
-            storedNum.push(Number(joinedArr))
-            currentNum = []
+            storeNum()
             updateDisplay(button)
         } else if(!operator && storedNum.length) {
             display.value = ""
@@ -182,7 +186,14 @@ btnDel.addEventListener('click', () => {
 point.addEventListener('click', () => {
     if (currentNum.includes(".")|| !currentNum.length) {
         return
-    } else {
+    } else if(operator) {
+        storeNum()
+        currentNum.push(0)
+        currentNum.push(".")
+        console.log("Beeep")
+        display.value = display.value + `${currentNum.join("")}`
+    }
+    else {
         currentNum.push(point.innerText)
         display.value = display.value + `${point.innerText}`
     }
