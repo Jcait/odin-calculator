@@ -2,6 +2,8 @@ let btnNum = document.querySelectorAll('.calc-number')
 let btnOperator = document.querySelectorAll('.calc-operator')
 let display = document.querySelector('input')
 let btnSum = document.querySelector('.calc-equals')
+let btnGoBack = document.querySelector(".clear-calc")
+let btnDel = document.querySelector(".delete-calc")
 let currentNum = []
 let storedNum = []
 let  operator 
@@ -31,16 +33,12 @@ let updateDisplay = (button) => {
 let calculate = () => {
     let firstNum = Number(storedNum);
     let secondNum = Number(currentNum.join("").replace(/\D/g,''))
-    console.log(currentNum)
-    console.log(firstNum)
-    console.log(storedNum)
-    console.log(secondNum)
-    console.log(operator(firstNum, secondNum))
-    currentNum = []
-    storedNum.push(operator(firstNum, secondNum))
-    display.value = operator(firstNum, secondNum)
-    storedNum.shift()
-    operator = ""
+        console.log(operator(firstNum, secondNum))
+        currentNum = []
+        storedNum.push(operator(firstNum, secondNum))
+        display.value = operator(firstNum, secondNum)
+        storedNum.shift()
+        operator = ""
 }
 
 // NUMBER BUTTONS
@@ -56,6 +54,10 @@ btnNum.forEach(button => {
             display.value = ""
             storedNum = []
             updateDisplay(button)
+        } 
+        else if(storedNum.includes(Infinity)) {
+            updateDisplay(button)
+            return
         }
         else {
             updateDisplay(button)
@@ -75,6 +77,12 @@ btnOperator.forEach(button => {
                 calculate()
                 display.value = display.value + `${button.innerText}`
         }
+
+         else if(display.value == "") {
+            console.log("empty")
+            return ""
+        } 
+
         else if(!operator){
             display.value = display.value + `${button.innerText}`
         } 
@@ -86,7 +94,8 @@ btnOperator.forEach(button => {
         else if (!currentNum.length && storedNum.length){
             display.value = display.value.replace(dupeSymbol, button.innerText)
 
-        }
+        } 
+
     })
 })
 
@@ -128,6 +137,27 @@ btnSum.addEventListener('click', () => {
     
 })
 
+// delete and clear buttons
+
+btnGoBack.addEventListener('click',  () => {
+    let i = display.value.length
+    let dupeSymbol = display.value.charAt(i-1)
+    console.log(i)
+    console.log(dupeSymbol)
+    if(!currentNum.length) {
+        return
+    } else {
+        currentNum.pop()
+        display.value = display.value.slice(0, display.value.length - 1)
+    }
+})
+
+btnDel.addEventListener('click', () => {
+    currentNum = []
+    storedNum = []
+    operator = ""
+    display.value = ""
+})
 
 
 
