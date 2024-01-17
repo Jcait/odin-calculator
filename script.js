@@ -31,6 +31,9 @@ let updateDisplay = (button) => {
 }
 
 let calculate = () => {
+    if(!currentNum.length) {
+        return
+    }
     let firstNum = Number(storedNum);
     let secondNum = Number(currentNum.join("").replace(/\D/g,''))
         console.log(operator(firstNum, secondNum))
@@ -45,7 +48,12 @@ let calculate = () => {
 
 btnNum.forEach(button => {
     button.addEventListener('click', () => {
-        if(operator && !storedNum.length) {
+        if(!currentNum.length 
+            && button.innerText ==="0"
+            && !storedNum.length) {
+                return
+            }
+        else if(operator && !storedNum.length) {
             let joinedArr = (currentNum.join(""))
             storedNum.push(Number(joinedArr))
             currentNum = []
@@ -159,7 +167,6 @@ btnDel.addEventListener('click', () => {
     display.value = ""
 })
 // test
-
 
 
 
