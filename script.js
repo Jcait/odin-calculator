@@ -39,7 +39,11 @@ let calculate = () => {
         console.log(operator(firstNum, secondNum))
         currentNum = []
         storedNum.push(operator(firstNum, secondNum))
-        display.value = operator(firstNum, secondNum)
+        if(storedNum.includes(NaN)) {
+            display.value = "Error"
+        } else {
+            display.value = operator(firstNum, secondNum)
+        }
         storedNum.shift()
         operator = ""
 }
@@ -48,11 +52,13 @@ let calculate = () => {
 
 btnNum.forEach(button => {
     button.addEventListener('click', () => {
-        if(!currentNum.length 
-            && button.innerText ==="0"
-            && !storedNum.length) {
+            if(currentNum[0] === 0 
+            && operator
+            && button.innerText === "0") {
+                console.log("zeros")
                 return
-            }
+            } 
+        
         else if(operator && !storedNum.length) {
             let joinedArr = (currentNum.join(""))
             storedNum.push(Number(joinedArr))
@@ -63,10 +69,8 @@ btnNum.forEach(button => {
             storedNum = []
             updateDisplay(button)
         } 
-        else if(storedNum.includes(Infinity)) {
-            updateDisplay(button)
-            return
-        }
+
+
         else {
             updateDisplay(button)
         }
