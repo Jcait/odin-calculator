@@ -5,6 +5,11 @@ body {
 
 }
 
+.calculator {
+    box-shadow: 0 2px 4px darkslategray;
+    outline: black solid 1px;
+    border-radius: 5px;
+}
 
 .clear-calc, .delete-calc {
     width: 50%;
@@ -16,10 +21,14 @@ button {
     font-size: 150%;
     font-weight: 500;
     background-color: #48abe0;
+    outline: black solid 1px;
     color: white;
     border: none;
     padding: 5px;
-    box-shadow: 0 px 1px 4px darkslategray;
+    box-shadow: 0 px 2px 4px darkslategray;
+    border-radius: 3px;
+
+
 }
 
 button {
@@ -48,5 +57,5 @@ input {
     background: aliceblue;
     font-size: 30px;
     color: black;
-    box-shadow: 0 2px 4px darkslategray;
+    border: none;
 }
