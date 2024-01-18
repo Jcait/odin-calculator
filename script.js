@@ -66,6 +66,9 @@ btnNum.forEach(button => {
                 console.log("zeros")
                 return
             } 
+            else if(display.value.length === 12) {
+                return
+            }
         
         else if(operator && !storedNum.length) {
             storeNum()
