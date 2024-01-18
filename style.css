@@ -2,6 +2,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+
 }
 
 
@@ -14,7 +15,27 @@ button {
     height: 50px;
     font-size: 150%;
     font-weight: 500;
+    background-color: #48abe0;
+    color: white;
+    border: none;
+    padding: 5px;
+    box-shadow: 0 px 1px 4px darkslategray;
 }
+
+button {
+    transition: all 0.03s linear;
+  }
+  
+  button:hover {
+    background-color: #65b9e6;
+  }
+
+  button:active {
+    background-color: white;
+    color: #48abe0
+  }
+  
+
 
 div  {
     width: 280px;
@@ -27,4 +48,5 @@ input {
     background: aliceblue;
     font-size: 30px;
     color: black;
+    box-shadow: 0 2px 4px darkslategray;
 }
